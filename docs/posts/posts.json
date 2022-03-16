@@ -1,0 +1,19 @@
+[
+  {
+    "path": "posts/welcome/",
+    "title": "First Post: Introduction",
+    "description": "Welcome to my blog Text as data, please click to check initial draft. \n Kindly look for future posts for furthur information. New posts every week :-)...",
+    "author": [
+      {
+        "name": "Sathvik Thogaru",
+        "url": "https://thogarusathvik.github.io/Text_as_data/"
+      }
+    ],
+    "date": "2022-02-18",
+    "categories": [],
+    "contents": "\r\n\r\nbody {\r\ntext-align: justify}\r\nTwitter, Facebook, Reddit and other social media platforms represent\r\na large and largely untapped resource for social data and evidence.The\r\ndata in these platforms is vast, contains variety of topics that people\r\ndiscuss on the daily basis regardless of geographical location. This\r\ndata that is generated on the daily basis provides a key/main source of\r\ninformation for anyone who wants to study science, communication, people\r\nopinions and situations happening across the world at the same time.\r\nThese platforms provide data through number of applicatyion\r\nProgramming Interfaces(API). Although it may be diificult or sometimes\r\nnot possible to obtain data from these platforms, they help in\r\nqualitative and quantitative research.\r\nCovid-19 outbreak was nothing less than the biggest nightmare the\r\nhumanity has gone through that has changed the lives of millions\r\nupsidedown in no time and almost everyone have suffered. Even with the\r\nresearch advancements we see and develop every single day, yet we still\r\nhaven’t figured out completely to eliminate the virus. So we adapted\r\nourselves to live with it but that didn’t happen overnight. In my study\r\nI am trying to collect the voices of people across all borders what they\r\nshared on social media platforms like Twitter, Reddit etc., and\r\ndifferentiate the data according to the phases of the outbreak while\r\nlisting the most common problems that masses faced at each stage and\r\nestablish the relation on how the trend shifting happened overtime and\r\nwho were most impacted by it.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2022-03-16T00:56:20-04:00",
+    "input_file": "welcome.knit.md"
+  }
+]
