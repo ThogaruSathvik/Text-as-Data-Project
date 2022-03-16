@@ -1,0 +1,111 @@
+---
+title: "Initial Analysis"
+description: |
+  Initial Understanding of the Data.
+author:
+  - name: Sathvik Thogaru
+    url: https://thogarusathvik.github.io/Text_as_data/
+date: 02-22-2022
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style>
+body {
+text-align: justify}
+</style>
+
+This is just an initial glimpse at the how will the data look like once I download using the API. I have created a word cloud using the initially collected 200 observations of data( data is not cleaned properly) from the Twitter using the twitter API's and the hashtag used is #COVID19
+
+```{r}
+library(quanteda)
+library(quanteda.textplots)
+```
+
+Since the API Keys and Tokens used needs to secured and cannot be shared I didn't include my data scrapping code in this post. Below is the syntax that I used to get the tweets.
+
+
+`library(rtweet)`
+
+`mytoken <- create_token(`
+
+  `app = "scrapetext",`
+  
+  `consumer_key = "#############",`
+  
+  `consumer_secret = "##############",`
+  
+  `access_token = "#############",`
+  
+  `access_secret = "#############")`
+
+
+`data <- search_tweets("#Covid", include_retweets = TRUE,`
+`n = 1000, retryonratelimit = TRUE,  token = mytoken, lang = 'en')`
+
+`save(data, file = 'twitter_data.rda')`
+
+
+using the above R code I extracted the `1000 tweets` which are in `English`. The `retweets` are also included
+
+personal twitter dev account,  using twitter API extracted the 200 mixed type of tweets which are in english. The retweets are also included
+
+``` {r}
+data_ <- load(file = '../../twitter_data.rda')
+``` 
+
+range of data available 
+
+```{r}
+range(data$created_at)
+```
+
+hastags that are included in the tweets
+
+```{r}
+hashtags <- list()
+for (i in data$hashtags){hashtags <- c(hashtags, i)}
+```
+
+building wordcloud
+
+```{r}
+hashtags_c = unlist(hashtags)
+textplot_wordcloud(dfm(corpus(hashtags_c)))
+```
+
+
+
+converting the character vectors, `text`, `retweet_text` to a single corpus
+
+```{r}
+text <- corpus(c(data$text, data$retweet_text))
+text <- tokens(text, remove_punct=TRUE, remove_numbers = TRUE) %>%
+             tokens_select(pattern=stopwords("en"),
+                            selection="remove")
+```
+
+removing hashtags
+removing links
+
+```{r}
+text <- sub("(?:\\s*#\\w+)+\\s*$", "", text)
+text <- gsub("http.+", "", text) 
+
+```
+
+visual representation of the tweet and retweet text data that is available in the collected data
+
+```{r}
+textplot_wordcloud(dfm(text))
+
+```
+
+looks like there are a lot of region based language text used in the tweets, this may be the reasin the words are not really meaningful.
+
+

@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/third_post/",
+    "title": "Initial Analysis",
+    "description": "Initial Understanding of the Data.",
+    "author": [
+      {
+        "name": "Sathvik Thogaru",
+        "url": "https://thogarusathvik.github.io/Text_as_data/"
+      }
+    ],
+    "date": "2022-02-22",
+    "categories": [],
+    "contents": "\r\n\r\nbody {\r\ntext-align: justify}\r\nThis is just an initial glimpse at the how will the data look like\r\nonce I download using the API. I have created a word cloud using the\r\ninitially collected 200 observations of data( data is not cleaned\r\nproperly) from the Twitter using the twitter API’s and the hashtag used\r\nis #COVID19\r\n\r\n\r\nlibrary(quanteda)\r\nlibrary(quanteda.textplots)\r\n\r\n\r\n\r\nSince the API Keys and Tokens used needs to secured and cannot be\r\nshared I didn’t include my data scrapping code in this post. Below is\r\nthe syntax that I used to get the tweets.\r\nlibrary(rtweet)\r\nmytoken <- create_token(\r\napp = \"scrapetext\",\r\nconsumer_key = \"#############\",\r\nconsumer_secret = \"##############\",\r\naccess_token = \"#############\",\r\naccess_secret = \"#############\")\r\ndata <- search_tweets(\"#Covid\", include_retweets = TRUE,\r\nn = 1000, retryonratelimit = TRUE,  token = mytoken, lang = 'en')\r\nsave(data, file = 'twitter_data.rda')\r\nusing the above R code I extracted the 1000 tweets which\r\nare in English. The retweets are also\r\nincluded\r\npersonal twitter dev account, using twitter API extracted the 200\r\nmixed type of tweets which are in english. The retweets are also\r\nincluded\r\n\r\n\r\ndata_ <- load(file = '../../twitter_data.rda')\r\n\r\n\r\n\r\nrange of data available\r\n\r\n\r\nrange(data$created_at)\r\n\r\n\r\n[1] \"2022-02-22 00:39:01 UTC\" \"2022-02-23 07:52:00 UTC\"\r\n\r\nhastags that are included in the tweets\r\n\r\n\r\nhashtags <- list()\r\nfor (i in data$hashtags){hashtags <- c(hashtags, i)}\r\n\r\n\r\n\r\nbuilding wordcloud\r\n\r\n\r\nhashtags_c = unlist(hashtags)\r\ntextplot_wordcloud(dfm(corpus(hashtags_c)))\r\n\r\n\r\n\r\n\r\nconverting the character vectors, text,\r\nretweet_text to a single corpus\r\n\r\n\r\ntext <- corpus(c(data$text, data$retweet_text))\r\ntext <- tokens(text, remove_punct=TRUE, remove_numbers = TRUE) %>%\r\n             tokens_select(pattern=stopwords(\"en\"),\r\n                            selection=\"remove\")\r\n\r\n\r\n\r\nremoving hashtags removing links\r\n\r\n\r\ntext <- sub(\"(?:\\\\s*#\\\\w+)+\\\\s*$\", \"\", text)\r\ntext <- gsub(\"http.+\", \"\", text) \r\n\r\n\r\n\r\nvisual representation of the tweet and retweet text data that is\r\navailable in the collected data\r\n\r\n\r\ntextplot_wordcloud(dfm(text))\r\n\r\n\r\n\r\n\r\nlooks like there are a lot of region based language text used in the\r\ntweets, this may be the reasin the words are not really meaningful.\r\n\r\n\r\n\r\n",
+    "preview": "posts/third_post/third_post_files/figure-html5/unnamed-chunk-5-1.png",
+    "last_modified": "2022-03-16T01:13:23-04:00",
+    "input_file": "third_post.knit.md"
+  },
+  {
     "path": "posts/welcome/",
     "title": "First Post: Introduction",
     "description": "Welcome to my blog Text as data, please click to check initial draft. \n Kindly look for future posts for furthur information. New posts every week :-)...",

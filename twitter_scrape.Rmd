@@ -1,0 +1,41 @@
+---
+title: "Text as Data"
+description: |
+  Data Collection
+author:
+  - name: Sathvik 
+date: 02-20-2022
+output:
+  distill::distill_article:
+    self_contained: False
+---
+
+<style>
+body {
+text-align: justify}
+</style>
+
+personal twitter dev account
+
+``` {r}
+library(rtweet)
+mytoken <- create_token(
+  app = "scrapetext",
+  consumer_key = "C970M0FZrJEKBqZR3HFMsSGvd",
+  consumer_secret = "r6kLAmeA3TU5h5HxLZT1iVIlUMGvlp2K849YXyXvAlR0L6EOr6 ",
+  access_token = "3506023692-7hPZkDFjgjXzDmozlsK5kZUsZqQ7XksBuWY0dJN",
+  access_secret = "GnUrVqxnWld60dJr5qxUji6cDGeZzhhYd06W5VEA16lhn")
+``` 
+
+Collecting n=1000 tweets with #Covid. Saving in rda format
+
+``` {r}
+data <- search_tweets("#Covid", include_retweets = TRUE, n = 1000, 
+                      retryonratelimit = TRUE,  token = mytoken, lang = 'en')
+```
+
+Range
+```{r}
+save(data, file = 'twitter_data.rda')
+```
+
