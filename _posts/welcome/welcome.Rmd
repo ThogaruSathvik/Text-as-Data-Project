@@ -5,7 +5,7 @@ description: |
   Kindly look for future posts for furthur information. New posts every week :-)... 
 author:
   - name: Sathvik Thogaru 
-    url: https://thogarusathvik.github.io/Text_as_data/
+    url: https://thogarusathvik.github.io/Text-as-Data-Project/
     
 date: 02-18-2022
 output:
