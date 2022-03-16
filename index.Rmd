@@ -1,5 +1,5 @@
 ---
-title: "My Blog"
+title: "Text as Data"
 site: distill::distill_website
 listing: posts
 ---

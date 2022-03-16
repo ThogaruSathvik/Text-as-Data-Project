@@ -1,7 +1,7 @@
 name: "Text as Data Project"
-title: "My Blog"
+title: "Text as Data"
 description: |
-  My Blog
+  Text as Data
 output_dir: "docs"
 navbar:
   right:

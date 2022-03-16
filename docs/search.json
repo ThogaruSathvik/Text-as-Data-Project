@@ -3,17 +3,17 @@
     {
       "path": "about.html",
       "title": "About this blog",
-      "description": "Some additional details about the blog",
+      "description": "Text As Data Project blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-03-16T00:56:05-04:00"
+      "last_modified": "2022-03-16T01:34:13-04:00"
     },
     {
       "path": "index.html",
-      "title": "My Blog",
+      "title": "Text as Data",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-03-16T00:56:06-04:00"
+      "last_modified": "2022-03-16T01:31:58-04:00"
     }
   ],
   "collections": ["posts/posts.json"]
