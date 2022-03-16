@@ -24,6 +24,7 @@ This is just an initial glimpse at the how will the data look like once I downlo
 
 ```{r}
 library(quanteda)
+library(tidyr)
 library(quanteda.textplots)
 ```
 
