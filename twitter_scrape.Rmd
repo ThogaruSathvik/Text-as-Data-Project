@@ -36,6 +36,6 @@ data <- search_tweets("#Covid", include_retweets = TRUE, n = 1000,
 
 Range
 ```{r}
-save(data, file = 'twitter_data.rda')
+write_as_csv(data, "twitter_data.csv", prepend_ids = TRUE, na = "", fileEncoding = "UTF-8")
 ```
 

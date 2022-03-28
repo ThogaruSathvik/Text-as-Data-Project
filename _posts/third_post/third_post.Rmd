@@ -23,9 +23,11 @@ text-align: justify}
 This is just an initial glimpse at the how will the data look like once I download using the API. I have created a word cloud using the initially collected 200 observations of data( data is not cleaned properly) from the Twitter using the twitter API's and the hashtag used is #COVID19
 
 ```{r}
+library(rtweet)
 library(quanteda)
 library(tidyr)
 library(quanteda.textplots)
+library(dplyr)
 ```
 
 Since the API Keys and Tokens used needs to secured and cannot be shared I didn't include my data scrapping code in this post. Below is the syntax that I used to get the tweets.
@@ -56,21 +58,23 @@ using the above R code I extracted the `1000 tweets` which are in `English`. The
 
 personal twitter dev account,  using twitter API extracted the 200 mixed type of tweets which are in english. The retweets are also included
 
-``` {r}
-data_ <- load(file = '../../twitter_data.rda')
-``` 
+```{r}
+library(readr)
+twitter_data <- read_csv("../../twitter_data.csv")
+```
+
 
 range of data available 
 
 ```{r}
-range(data$created_at)
+range(twitter_data$created_at)
 ```
 
 hastags that are included in the tweets
 
 ```{r}
 hashtags <- list()
-for (i in data$hashtags){hashtags <- c(hashtags, i)}
+for (i in twitter_data$hashtags){hashtags <- c(hashtags, i)}
 ```
 
 building wordcloud
@@ -85,7 +89,7 @@ textplot_wordcloud(dfm(corpus(hashtags_c)))
 converting the character vectors, `text`, `retweet_text` to a single corpus
 
 ```{r}
-text <- corpus(c(data$text, data$retweet_text))
+text <- corpus(c(twitter_data$text, twitter_data$retweet_text))
 text <- tokens(text, remove_punct=TRUE, remove_numbers = TRUE) %>%
              tokens_select(pattern=stopwords("en"),
                             selection="remove")
