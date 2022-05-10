@@ -1,0 +1,159 @@
+---
+title: "fifth_post"
+description: |
+ Blog Post 5
+author:
+  - name: Sathvik Thogaru 
+    url: https://thogarusathvik.github.io/Text-as-Data-Project/
+    
+date: 04-18-2022
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<style>
+body {
+text-align: justify}
+</style>
+
+## intro
+
+```{r}
+library(quanteda)
+library(tidyr)
+library(quanteda.textplots)
+library(dplyr)
+library(readr)
+library(stopwords)
+library(ggplot2)
+library(tidytext)
+library(quanteda.sentiment)
+library(plotrix)
+library(radarchart)
+load("../../data/fifth_post.RData")
+
+
+
+df <- read_csv("../../data/combined_data.csv") %>% select(-1)
+```
+
+
+```{r}
+
+df %>% filter(!is.na(user_location)) %>% 
+  count(user_location, sort = TRUE) %>%
+  mutate(user_location = reorder(user_location, n)) %>%
+  top_n(10) %>%
+  ggplot(aes(x = user_location, y = n, na.rm = TRUE, fill = n)) +
+  geom_col() +
+  coord_flip() +
+      labs(x = "Location",
+      y = "Count",
+      title = "Where more tweets are from - unique locations ") +  theme_classic()+
+  theme(legend.position="none")
+```
+
+
+## tokenization and dfm
+
+```{r}
+tweets <- df$text
+stop_words <- stopwords(source = "stopwords-iso")
+tweets <- tweets %>% tokens %>% 
+  tokens_remove(pattern = phrase(stop_words), valuetype = 'fixed')
+
+dfm_tokens <- dfm(tweets)
+topfeatures(dfm_tokens, 20)
+```
+
+```{r}
+word_counts <- as.data.frame(sort(colSums(dfm_tokens),dec=T))
+colnames(word_counts) <- c("count")
+word_counts$word <- row.names(word_counts)
+textplot_wordcloud(dfm_tokens)
+
+```
+
+## save RData
+
+```{r}
+# save.image(file = "fifth_post.RData")
+```
+
+
+## fcm
+
+```{r}
+text_dfm <- dfm_trim(dfm_tokens, min_termfreq = 500)
+
+# create fcm from dfm
+text_fcm <- fcm(text_dfm)
+
+# check the dimensions (i.e., the number of rows and the number of columnns)
+# of the matrix we created
+dim(text_fcm)
+```
+
+
+```{r}
+# pull the top features
+myFeatures <- names(topfeatures(text_fcm, 50))
+
+# retain only those top features as part of our matrix
+top_text_fcm <- fcm_select(text_fcm, pattern = myFeatures, selection = "keep")
+
+# check dimensions
+dim(top_text_fcm)
+```
+
+
+```{r}
+# compute size weight for vertices in network
+size <- log(colSums(top_text_fcm))
+
+# create plot
+textplot_network(top_text_fcm, vertex_size = size / max(size) * 3)
+```
+
+## sentiment analysis bing and nrc
+
+```{r}
+tweets_bing<-word_counts%>% 
+  # Implement sentiment analysis using the "bing" lexicon
+  inner_join(get_sentiments("bing")) 
+
+perc<-tweets_bing %>% 
+  count(sentiment)%>% #count sentiment
+  mutate(total=sum(n)) %>% #get sum
+  group_by(sentiment) %>% #group by sentiment
+  mutate(percent=round(n/total,2)*100) %>% #get the proportion
+  ungroup()
+
+label <-c( paste(perc$percent[1],'%',' - ',perc$sentiment[1],sep=''),#create label
+     paste(perc$percent[2],'%',' - ',perc$sentiment[2],sep=''))
+
+pie3D(perc$percent,labels=label,labelcex=1.1,explode= 0.1, 
+      main="Worldwide Sentiment")
+```
+
+```{r}
+word_counts %>%
+  # implement sentiment analysis using the "nrc" lexicon
+  inner_join(get_sentiments("nrc")) %>%
+  # remove "positive/negative" sentiments
+  filter(!sentiment %in% c("positive", "negative")) %>%
+  #get the frequencies of sentiments
+  count(sentiment,sort = T) %>% 
+  #calculate the proportion
+  mutate(percent=100*n/sum(n)) %>%
+  select(sentiment, percent) %>%
+  #plot the result
+  chartJSRadar(showToolTipLabel = TRUE, main = "NRC Radar")
+```
+
+
