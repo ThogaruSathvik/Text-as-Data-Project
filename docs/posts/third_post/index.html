@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Text as Data: Initial Analysis</title>
@@ -92,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2022-02-22"/>
-<meta property="article:created" itemprop="dateCreated" content="2022-02-22"/>
+<meta property="article:published" itemprop="datePublished" content="2022-02-28"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-02-28"/>
 <meta name="article:author" content="Sathvik Thogaru"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -112,12 +113,12 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Initial Analysis"]},{"type":"character","attributes":{},"value":["Initial Understanding of the Data."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Sathvik Thogaru"]},{"type":"character","attributes":{},"value":["https://thogarusathvik.github.io/Text-as-Data-Project/"]}]}]},{"type":"character","attributes":{},"value":["02-22-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Initial Analysis"]},{"type":"character","attributes":{},"value":["Initial Understanding of the Data."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Sathvik Thogaru"]},{"type":"character","attributes":{},"value":["https://thogarusathvik.github.io/Text-as-Data-Project/"]}]}]},{"type":"character","attributes":{},"value":["02-28-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
   <script type="text/json" id="radix-resource-manifest">
-  {"type":"character","attributes":{},"value":["third_post_files/anchor-4.2.2/anchor.min.js","third_post_files/bowser-1.9.3/bowser.min.js","third_post_files/distill-2.2.21/template.v2.js","third_post_files/figure-html5/unnamed-chunk-5-1.png","third_post_files/figure-html5/unnamed-chunk-8-1.png","third_post_files/header-attrs-2.10/header-attrs.js","third_post_files/jquery-1.11.3/jquery.min.js","third_post_files/popper-2.6.0/popper.min.js","third_post_files/tippy-6.2.7/tippy-bundle.umd.min.js","third_post_files/tippy-6.2.7/tippy-light-border.css","third_post_files/tippy-6.2.7/tippy.css","third_post_files/tippy-6.2.7/tippy.umd.min.js","third_post_files/webcomponents-2.0.0/webcomponents.js"]}
+  {"type":"character","attributes":{},"value":["third_post_files/anchor-4.2.2/anchor.min.js","third_post_files/bowser-1.9.3/bowser.min.js","third_post_files/distill-2.2.21/template.v2.js","third_post_files/figure-html5/unnamed-chunk-5-1.png","third_post_files/figure-html5/unnamed-chunk-8-1.png","third_post_files/header-attrs-2.10/header-attrs.js","third_post_files/header-attrs-2.14/header-attrs.js","third_post_files/jquery-1.11.3/jquery.min.js","third_post_files/jquery-3.6.0/jquery-3.6.0.js","third_post_files/jquery-3.6.0/jquery-3.6.0.min.js","third_post_files/jquery-3.6.0/jquery-3.6.0.min.map","third_post_files/popper-2.6.0/popper.min.js","third_post_files/tippy-6.2.7/tippy-bundle.umd.min.js","third_post_files/tippy-6.2.7/tippy-light-border.css","third_post_files/tippy-6.2.7/tippy.css","third_post_files/tippy-6.2.7/tippy.umd.min.js","third_post_files/webcomponents-2.0.0/webcomponents.js"]}
   </script>
   <!--radix_placeholder_navigation_in_header-->
 <meta name="distill:offset" content="../.."/>
@@ -463,7 +464,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1870,7 +1871,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2041,8 +2045,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2062,7 +2066,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Initial Analysis","description":"Initial Understanding of the Data.","authors":[{"author":"Sathvik Thogaru","authorURL":"https://thogarusathvik.github.io/Text-as-Data-Project/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-02-22T00:00:00.000-05:00","citationText":"Thogaru, 2022"}
+{"title":"Initial Analysis","description":"Initial Understanding of the Data.","authors":[{"author":"Sathvik Thogaru","authorURL":"https://thogarusathvik.github.io/Text-as-Data-Project/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-02-28T00:00:00.000-05:00","citationText":"Thogaru, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2096,7 +2100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 href="https://thogarusathvik.github.io/Text-as-Data-Project/"
 class="uri">https://thogarusathvik.github.io/Text-as-Data-Project/</a> 
   
-<br/>02-22-2022
+<br/>02-28-2022
 </div>
 
 <div class="d-article">
@@ -2111,9 +2115,11 @@ properly) from the Twitter using the twitter API’s and the hashtag used
 is #COVID19</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://quanteda.io'>quanteda</a></span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://CRAN.R-project.org/package=rtweet'>rtweet</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://quanteda.io'>quanteda</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyr.tidyverse.org'>tidyr</a></span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>quanteda.textplots</span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://dplyr.tidyverse.org'>dplyr</a></span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2138,23 +2144,24 @@ mixed type of tweets which are in english. The retweets are also
 included</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>data_</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/load.html'>load</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='st'>'../../twitter_data.rda'</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://readr.tidyverse.org'>readr</a></span><span class='op'>)</span>
+<span class='va'>twitter_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"../../twitter_data.csv"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
 <p>range of data available</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>created_at</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/range.html'>range</a></span><span class='op'>(</span><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>created_at</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] &quot;2022-02-22 00:39:01 UTC&quot; &quot;2022-02-23 07:52:00 UTC&quot;</code></pre>
+<pre><code>[1] &quot;2022-03-24 06:44:16 UTC&quot; &quot;2022-03-25 20:57:13 UTC&quot;</code></pre>
 </div>
 <p>hastags that are included in the tweets</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>hashtags</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>
-<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='va'>data</span><span class='op'>$</span><span class='va'>hashtags</span><span class='op'>)</span><span class='op'>{</span><span class='va'>hashtags</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>hashtags</span>, <span class='va'>i</span><span class='op'>)</span><span class='op'>}</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>hashtags</span><span class='op'>)</span><span class='op'>{</span><span class='va'>hashtags</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>hashtags</span>, <span class='va'>i</span><span class='op'>)</span><span class='op'>}</span>
 </code></pre>
 </div>
 </div>
@@ -2171,8 +2178,8 @@ included</p>
 <code>retweet_text</code> to a single corpus</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>data</span><span class='op'>$</span><span class='va'>text</span>, <span class='va'>data</span><span class='op'>$</span><span class='va'>retweet_text</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/tokens.html'>tokens</a></span><span class='op'>(</span><span class='va'>text</span>, remove_punct<span class='op'>=</span><span class='cn'>TRUE</span>, remove_numbers <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/corpus.html'>corpus</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span>, <span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>retweet_text</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://quanteda.io/reference/tokens.html'>tokens</a></span><span class='op'>(</span><span class='va'>text</span>, remove_punct<span class='op'>=</span><span class='cn'>TRUE</span>, remove_numbers <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
              <span class='fu'><a href='https://quanteda.io/reference/tokens_select.html'>tokens_select</a></span><span class='op'>(</span>pattern<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/stopwords/man/stopwords.html'>stopwords</a></span><span class='op'>(</span><span class='st'>"en"</span><span class='op'>)</span>,
                             selection<span class='op'>=</span><span class='st'>"remove"</span><span class='op'>)</span>
 </code></pre>
@@ -2195,8 +2202,23 @@ available in the collected data</p>
 </div>
 <p><img src="third_post_files/figure-html5/unnamed-chunk-8-1.png" width="624" /></p>
 </div>
-<p>looks like there are a lot of region based language text used in the
-tweets, this may be the reasin the words are not really meaningful.</p>
+<p>looks like there are a lot of other text used in the tweets which
+needs to be cleaned, this may be the reason the words are not really
+meaningful.</p>
+<p>Now the following is the code used for downloading tweets from
+Academic twitter API for analysis with more larger data</p>
+<ul>
+<li><p>set_bearer()</p></li>
+<li><p>(academictwitteR)</p></li>
+<li><p>tweets &lt;- get_all_tweets( query = c(“#Covid19”,
+“#Coronavirus”, “#StayHome”), start_tweets = “2022-01-01T00:00:00Z”,
+end_tweets = “2022-02-28T00:00:00Z”, remove_promoted = TRUE, lang =
+“en”, file = “scraped_data1_”, data_path = “data1/”, n = 1000000,
+)</p></li>
+<li><p>c &lt;- bind_tweets(data_path = “data/”, output_format =
+“tidy”)</p></li>
+<li><p>write.csv(c, “combined_data.csv”)</p></li>
+</ul>
 <div class="sourceCode" id="cb2"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->

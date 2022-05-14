@@ -5,7 +5,7 @@ description: |
 author:
   - name: Sathvik Thogaru
     url: https://thogarusathvik.github.io/Text-as-Data-Project/
-date: 02-22-2022
+date: 02-28-2022
 output:
   distill::distill_article:
     self_contained: false
@@ -111,6 +111,27 @@ textplot_wordcloud(dfm(text))
 
 ```
 
-looks like there are a lot of region based language text used in the tweets, this may be the reasin the words are not really meaningful.
+looks like there are a lot of other text used in the tweets which needs to be cleaned, this may be the reason the words are not really meaningful.
 
+
+Now the following is the code used for downloading tweets from Academic twitter API for analysis with more larger data
+
+
+- set_bearer()
+
+
+- (academictwitteR)
+- tweets <- get_all_tweets(
+    query = c("#Covid19", "#Coronavirus", "#StayHome"),
+    start_tweets = "2022-01-01T00:00:00Z",
+    end_tweets = "2022-02-28T00:00:00Z",
+    remove_promoted = TRUE,
+    lang = "en",
+    file = "scraped_data1_",
+    data_path = "data1/",
+    n = 1000000,
+  )
+
+- c <- bind_tweets(data_path = "data/", output_format = "tidy")
+- write.csv(c, "combined_data.csv")
 

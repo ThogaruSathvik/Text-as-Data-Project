@@ -26,6 +26,9 @@ For my Research Question  which I have stated in my First post, I will collect t
 
 To get access to Twitter API, I will first sign up for `Twitter Developer Account`,then get access to my `API keys` and `Tokens`. After getting the required Keys and Tokens I make my initial request by using the `search_tweets()` fuction in package `rtweet` and store the data in a file which I will be using for my research.
 
+
+
+
 The initial glimpse of the data and its content will be availabe in the next post. 
 
 

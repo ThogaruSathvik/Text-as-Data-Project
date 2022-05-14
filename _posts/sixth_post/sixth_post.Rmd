@@ -1,0 +1,221 @@
+---
+title: "Sixth post"
+description: |
+ LDA  
+author:
+  - name: Sathvik Thogaru 
+    url: https://thogarusathvik.github.io/Text-as-Data-Project/
+    
+date: 04-26-2022
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE)
+qwraps2::lazyload_cache_dir(path = "sixth_post_cache/html5")
+
+```
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r libraries}
+library(ggplot2)
+library(topicmodels)
+library(dplyr)
+library(tm)
+library(quanteda)
+library(tidyr)
+library(readr)
+library(stringr)
+library(tidytext)
+library(stopwords)
+library(textmineR)
+library(stm)
+# load("../../data/sixth_post.RData")
+```
+# reading data
+
+After cleaning, the tweets that have length less than six words are removed from the analysis.
+Stemming is not preferred here as the meaning of the word is important for analysis
+
+```{r reading_data}
+df1 <- read_csv("../../data/combined_data.csv") %>% select(-1)
+df1$word_count <- str_count(df1$text, "\\w+")
+df1 <-  df1[!df1$word_count<6,] ## 40227 rows
+```
+removing the stopwords
+
+```{r stopwords}
+stop_words <- stopwords(source = "stopwords-iso")
+stop_words <- as.data.frame(stop_words)
+```
+removing 
+
+
+```{r transforming}
+df2 <- df1 %>%
+  unnest_tokens(text, text)
+df2 <- df2 %>% 
+  anti_join(stop_words, by= c("text" = "stop_words"))
+
+df2 <- df2 %>% 
+  group_by(tweet_id) %>%
+  summarise(text = paste0(text, collapse = ' '))
+
+df2$word_count <- str_count(df2$text, "\\w+")
+df2 <-  df2[!df2$word_count<6,]
+```
+
+corpus is trimmed with document having atleast 6 tokens 
+
+```{r corpus}
+tweets1 <- df2$text
+tweets1 <- unique(tweets1)
+corpus1 <- corpus(tweets1)
+corpus1 <- corpus_trim(corpus1, min_ntoken = 6)
+```
+
+
+LDA is run over 2, 5 nd 10 topics
+
+```{r dfm}
+dfm <- dfm(corpus1)
+# keep only words occurring >= 10 times and in >= 10 documents
+dfm <- dfm_trim(dfm, min_docfreq = 10, min_termfreq = 10)
+dtm <- convert(dfm, to = "topicmodels")
+# dtms1 <- removeSparseTerms(dtm1, 0.99)
+lda_10 <-  LDA(dtm, k = 10, method = 'Gibbs', control = list(seed = 1234))
+# save.image(file = " sixth_post.RData")
+lda_5 <-  LDA(dtm, k = 5, method = 'Gibbs', control = list(seed = 1234))
+# save.image(file = " sixth_post.RData")
+lda_2 <-  LDA(dtm, k = 2, method = 'Gibbs', control = list(seed = 1234))
+# save.image(file = " sixth_post.RData")
+```
+
+
+```{r analysis}
+#Top 10 terms or words under each topic
+(top10terms_2 <- as.data.frame(as.matrix(terms(lda_2,10))))
+(top10terms_5 <- as.data.frame(as.matrix(terms(lda_5,10))))
+(top10terms_10 <-  as.data.frame(as.matrix(terms(lda_10,10))))
+```
+
+
+<!-- # ```{r} -->
+<!-- # topic <- 6 -->
+<!-- # words <- posterior(lda_10)$terms[topic,] -->
+<!-- # top_words <- head(sort(words, decreasing = TRUE), n=30) -->
+<!-- # head(top_words) -->
+<!-- # ``` -->
+
+
+```{r LDA_2_topics}
+# apply auto tidy using tidy and use beta as per-topic-per-word probabilities
+
+topic_2 <- tidy(lda_2,matrix = "beta")
+
+# choose 10 words with highest beta from each topic
+
+top_terms_2 <- topic_2 %>%
+  group_by(topic) %>%
+  top_n(10,beta) %>%
+  ungroup() %>%
+  arrange(topic,-beta)
+
+# plot the topic and words for easy interpretation
+
+plot_topic_2 <- top_terms_2 %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip() +
+  scale_x_reordered()
+
+plot_topic_2
+```
+
+```{r LDA_5_topics}
+topic_5 <- tidy(lda_5,matrix = "beta")
+  top_terms_5 <- topic_5 %>%
+  group_by(topic) %>%
+    top_n(10,beta) %>%
+   ungroup() %>%
+   arrange(topic,-beta)
+
+plot_topic_5 <- top_terms_5 %>%
+   mutate(term = reorder_within(term, beta, topic)) %>%
+   ggplot(aes(term, beta, fill = factor(topic))) +
+   geom_col(show.legend = FALSE) +
+   facet_wrap(~ topic, scales = "free") +
+   coord_flip() +
+   scale_x_reordered()
+
+plot_topic_5
+```
+
+```{r LDA_10_topics}
+topic_10 <- tidy(lda_10,matrix = "beta")
+
+top_terms_10 <- topic_10 %>%
+  group_by(topic) %>%
+  top_n(10,beta) %>%
+  ungroup() %>%
+  arrange(topic,-beta)
+
+plot_topic_10 <- top_terms_10 %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~ topic, scales = "free") +
+  coord_flip() +
+  scale_x_reordered()
+
+plot_topic_10
+```
+
+
+<!-- ```{r} -->
+<!-- mod.out.corr <- topicCorr(lda_10) -->
+<!-- plot(mod.out.corr) -->
+<!-- ``` -->
+
+
+<!-- ```{r} -->
+<!-- lda_10$linguistic <- CalcHellingerDist(lda_10@phi) -->
+<!-- lda_10$hclust <- hclust(as.dist(lda_10$linguistic),"ward.D") -->
+<!-- lda_10$hclust$labels <- paste(lda_10$hclust$labels, lda_10$labels[,1]) -->
+<!-- plot(lda_10$hclust) -->
+<!-- ``` -->
+
+
+```{r wordcloud}
+library(wordcloud)
+wordcloud(names(top_words), top_words)
+```
+
+
+<!-- # ```{r topics_LDA_10} -->
+<!-- # topic.docs <- posterior(lda_10)$topics[,topic] -->
+<!-- # topic.docs <- sort(topic.docs, decreasing = T) -->
+<!-- # head(topic.docs) -->
+<!-- # ``` -->
+
+```{r topics2}
+topdoc = names(topic.docs)[1]
+topdoc_corp = corpus1[docnames(corpus1) == topdoc]
+texts(topdoc_corp)
+```
+
+
+
+
+
+
+
+

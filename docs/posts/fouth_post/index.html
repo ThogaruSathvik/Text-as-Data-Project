@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
 <title>Text as Data: Sentiment Analysis</title>
@@ -92,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
 <!--  https://schema.org/Article -->
-<meta property="article:published" itemprop="datePublished" content="2022-03-25"/>
-<meta property="article:created" itemprop="dateCreated" content="2022-03-25"/>
+<meta property="article:published" itemprop="datePublished" content="2022-03-10"/>
+<meta property="article:created" itemprop="dateCreated" content="2022-03-10"/>
 <meta name="article:author" content="Sathvik Thogaru"/>
 
 <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
@@ -112,7 +113,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
 <script type="text/json" id="radix-rmarkdown-metadata">
-{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Sentiment Analysis"]},{"type":"character","attributes":{},"value":["Sentiment Analysis."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Sathvik Thogaru"]},{"type":"character","attributes":{},"value":["https://thogarusathvik.github.io/Text-as-Data-Project/"]}]}]},{"type":"character","attributes":{},"value":["03-25-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article","html_document","pdf_document"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
+{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Sentiment Analysis"]},{"type":"character","attributes":{},"value":["Sentiment Analysis."]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Sathvik Thogaru"]},{"type":"character","attributes":{},"value":["https://thogarusathvik.github.io/Text-as-Data-Project/"]}]}]},{"type":"character","attributes":{},"value":["03-10-2022"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article","html_document","pdf_document"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["number_sections"]}},"value":[{"type":"logical","attributes":{},"value":[true]}]}]}]}
 </script>
 <!--/radix_placeholder_rmarkdown_metadata-->
   
@@ -463,7 +464,7 @@ d-title {
 
 </style>
 
-<script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+<script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <link href="../../site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
 <link href="../../site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
 <script src="../../site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1870,7 +1871,10 @@ function init_distill() {
 
     // hoverable references
     $('span.citation[data-cites]').each(function() {
-      var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+      var refs = $(this).attr('data-cites').split(" ");
+      var refHtml = refs.map(function(ref) {
+        return "<p>" + $('#ref-' + ref).html() + "</p>";
+      }).join("\n");
       window.tippy(this, {
         allowHTML: true,
         content: refHtml,
@@ -2041,8 +2045,8 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <!--/radix_placeholder_distill-->
-  <script src="../../site_libs/header-attrs-2.10/header-attrs.js"></script>
-  <script src="../../site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="../../site_libs/header-attrs-2.14/header-attrs.js"></script>
+  <script src="../../site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <script src="../../site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="../../site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="../../site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2062,7 +2066,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"Sentiment Analysis","description":"Sentiment Analysis.","authors":[{"author":"Sathvik Thogaru","authorURL":"https://thogarusathvik.github.io/Text-as-Data-Project/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-25T00:00:00.000-04:00","citationText":"Thogaru, 2022"}
+{"title":"Sentiment Analysis","description":"Sentiment Analysis.","authors":[{"author":"Sathvik Thogaru","authorURL":"https://thogarusathvik.github.io/Text-as-Data-Project/","affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-03-10T00:00:00.000-05:00","citationText":"Thogaru, 2022"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2096,7 +2100,7 @@ document.addEventListener('DOMContentLoaded', function() {
 href="https://thogarusathvik.github.io/Text-as-Data-Project/"
 class="uri">https://thogarusathvik.github.io/Text-as-Data-Project/</a> 
   
-<br/>03-25-2022
+<br/>03-10-2022
 </div>
 
 <div class="d-article">
@@ -2134,7 +2138,7 @@ text-align: justify}
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'>quanteda.textplots</span><span class='op'>)</span>
 <span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/juliasilge/tidytext'>tidytext</a></span><span class='op'>)</span>
 
-<span class='va'>twitter_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"../../twitter_data.csv"</span><span class='op'>)</span>
+<span class='va'>twitter_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://readr.tidyverse.org/reference/read_delim.html'>read_csv</a></span><span class='op'>(</span><span class='st'>"../../data/combined_data.csv"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -2153,11 +2157,11 @@ text-align: justify}
 </tr>
 <tr class="even">
 <td style="text-align: left;">Number of rows</td>
-<td style="text-align: left;">17943</td>
+<td style="text-align: left;">2140951</td>
 </tr>
 <tr class="odd">
 <td style="text-align: left;">Number of columns</td>
-<td style="text-align: left;">90</td>
+<td style="text-align: left;">5</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">_______________________</td>
@@ -2169,25 +2173,21 @@ text-align: justify}
 </tr>
 <tr class="even">
 <td style="text-align: left;">character</td>
-<td style="text-align: left;">58</td>
+<td style="text-align: left;">3</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">logical</td>
-<td style="text-align: left;">10</td>
-</tr>
-<tr class="even">
 <td style="text-align: left;">numeric</td>
-<td style="text-align: left;">18</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">POSIXct</td>
-<td style="text-align: left;">4</td>
+<td style="text-align: left;">1</td>
 </tr>
 <tr class="even">
+<td style="text-align: left;">POSIXct</td>
+<td style="text-align: left;">1</td>
+</tr>
+<tr class="odd">
 <td style="text-align: left;">________________________</td>
 <td style="text-align: left;"></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td style="text-align: left;">Group variables</td>
 <td style="text-align: left;">None</td>
 </tr>
@@ -2196,14 +2196,14 @@ text-align: justify}
 <p><strong>Variable type: character</strong></p>
 <table>
 <colgroup>
-<col style="width: 28%" />
-<col style="width: 12%" />
-<col style="width: 17%" />
-<col style="width: 4%" />
-<col style="width: 6%" />
-<col style="width: 7%" />
-<col style="width: 10%" />
+<col style="width: 19%" />
 <col style="width: 13%" />
+<col style="width: 19%" />
+<col style="width: 5%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
+<col style="width: 12%" />
+<col style="width: 15%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2219,692 +2219,51 @@ text-align: justify}
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">user_id</td>
-<td style="text-align: right;">0</td>
+<td style="text-align: left;">user_name</td>
+<td style="text-align: right;">173</td>
 <td style="text-align: right;">1.00</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">20</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">400</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">13493</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">status_id</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">17943</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">screen_name</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">13493</td>
+<td style="text-align: right;">600604</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: left;">text</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">16</td>
-<td style="text-align: right;">918</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6942</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">source</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">76</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">355</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">reply_to_status_id</td>
-<td style="text-align: right;">17082</td>
-<td style="text-align: right;">0.05</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">846</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">reply_to_user_id</td>
-<td style="text-align: right;">16971</td>
-<td style="text-align: right;">0.05</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">763</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">reply_to_screen_name</td>
-<td style="text-align: right;">16971</td>
-<td style="text-align: right;">0.05</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">763</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">hashtags</td>
-<td style="text-align: right;">3071</td>
-<td style="text-align: right;">0.83</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">350</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4379</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">symbols</td>
-<td style="text-align: right;">17861</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">76</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">urls_url</td>
-<td style="text-align: right;">14431</td>
-<td style="text-align: right;">0.20</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">122</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2511</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">urls_t.co</td>
-<td style="text-align: right;">14431</td>
-<td style="text-align: right;">0.20</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">119</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2927</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">urls_expanded_url</td>
-<td style="text-align: right;">14431</td>
-<td style="text-align: right;">0.20</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">621</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2696</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">media_url</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">87</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2674</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">media_t.co</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2690</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">media_expanded_url</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">70</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2680</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">media_type</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ext_media_url</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">46</td>
-<td style="text-align: right;">187</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2674</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ext_media_t.co</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">95</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2690</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">ext_media_expanded_url</td>
-<td style="text-align: right;">14880</td>
-<td style="text-align: right;">0.17</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">283</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2680</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">mentions_user_id</td>
-<td style="text-align: right;">4424</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">721</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3302</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">mentions_screen_name</td>
-<td style="text-align: right;">4424</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">542</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">3302</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">lang</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_status_id</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">19</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">501</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quoted_text</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">8</td>
-<td style="text-align: right;">1773</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">501</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_source</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">25</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">30</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quoted_user_id</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">452</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_screen_name</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">452</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quoted_name</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">218</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">452</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_location</td>
-<td style="text-align: right;">17500</td>
-<td style="text-align: right;">0.02</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">172</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">265</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quoted_description</td>
-<td style="text-align: right;">17417</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">13</td>
-<td style="text-align: right;">514</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">443</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">retweet_status_id</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2737</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_text</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">41</td>
-<td style="text-align: right;">917</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">2734</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">retweet_source</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">76</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">86</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_user_id</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1645</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">retweet_screen_name</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">15</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1645</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_name</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">279</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1644</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">retweet_location</td>
-<td style="text-align: right;">7540</td>
-<td style="text-align: right;">0.58</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">204</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">875</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_description</td>
-<td style="text-align: right;">6346</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">808</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1589</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">place_url</td>
-<td style="text-align: right;">17831</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">56</td>
-<td style="text-align: right;">56</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">92</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">place_name</td>
-<td style="text-align: right;">17831</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">91</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">place_full_name</td>
-<td style="text-align: right;">17831</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">40</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">92</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">place_type</td>
-<td style="text-align: right;">17831</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">3</td>
-<td style="text-align: right;">7</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">country</td>
-<td style="text-align: right;">17831</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">26</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">country_code</td>
-<td style="text-align: right;">17831</td>
-<td style="text-align: right;">0.01</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">17</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">geo_coords</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">coords_coords</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">5</td>
-<td style="text-align: right;">24</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">6</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">bbox_coords</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">23</td>
-<td style="text-align: right;">141</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">93</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">status_url</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">50</td>
-<td style="text-align: right;">62</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">17943</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">name</td>
-<td style="text-align: right;">2</td>
+<td style="text-align: right;">3028</td>
 <td style="text-align: right;">1.00</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">348</td>
+<td style="text-align: right;">295</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">13270</td>
+<td style="text-align: right;">570851</td>
 <td style="text-align: right;">0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">location</td>
-<td style="text-align: right;">5727</td>
-<td style="text-align: right;">0.68</td>
+<td style="text-align: left;">user_location</td>
+<td style="text-align: right;">722541</td>
+<td style="text-align: right;">0.66</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">226</td>
+<td style="text-align: right;">692</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">4514</td>
+<td style="text-align: right;">128828</td>
 <td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">description</td>
-<td style="text-align: right;">2449</td>
-<td style="text-align: right;">0.86</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">1209</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">11324</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">url</td>
-<td style="text-align: right;">11470</td>
-<td style="text-align: right;">0.36</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">32</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4366</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">profile_url</td>
-<td style="text-align: right;">11470</td>
-<td style="text-align: right;">0.36</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">32</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4366</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">profile_expanded_url</td>
-<td style="text-align: right;">11473</td>
-<td style="text-align: right;">0.36</td>
-<td style="text-align: right;">12</td>
-<td style="text-align: right;">100</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4301</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">profile_banner_url</td>
-<td style="text-align: right;">4458</td>
-<td style="text-align: right;">0.75</td>
-<td style="text-align: right;">54</td>
-<td style="text-align: right;">68</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">10221</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">profile_background_url</td>
-<td style="text-align: right;">7438</td>
-<td style="text-align: right;">0.59</td>
-<td style="text-align: right;">48</td>
-<td style="text-align: right;">49</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">20</td>
-<td style="text-align: right;">0</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">profile_image_url</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">58</td>
-<td style="text-align: right;">140</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">12872</td>
-<td style="text-align: right;">0</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Variable type: logical</strong></p>
-<table>
-<colgroup>
-<col style="width: 25%" />
-<col style="width: 14%" />
-<col style="width: 20%" />
-<col style="width: 7%" />
-<col style="width: 32%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th style="text-align: left;">skim_variable</th>
-<th style="text-align: right;">n_missing</th>
-<th style="text-align: right;">complete_rate</th>
-<th style="text-align: right;">mean</th>
-<th style="text-align: left;">count</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: left;">is_quote</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: left;">FAL: 17408, TRU: 535</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">is_retweet</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: left;">TRU: 11701, FAL: 6242</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quote_count</td>
-<td style="text-align: right;">17943</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">NaN</td>
-<td style="text-align: left;">:</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">reply_count</td>
-<td style="text-align: right;">17943</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">NaN</td>
-<td style="text-align: left;">:</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">ext_media_type</td>
-<td style="text-align: right;">17943</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">NaN</td>
-<td style="text-align: left;">:</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_verified</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">0.43</td>
-<td style="text-align: left;">FAL: 305, TRU: 230</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_verified</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">0.47</td>
-<td style="text-align: left;">FAL: 6174, TRU: 5527</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">protected</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: left;">FAL: 17943</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">verified</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">0.04</td>
-<td style="text-align: left;">FAL: 17161, TRU: 782</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">account_lang</td>
-<td style="text-align: right;">17943</td>
-<td style="text-align: right;">0.00</td>
-<td style="text-align: right;">NaN</td>
-<td style="text-align: left;">:</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: numeric</strong></p>
 <table>
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 6%" />
-<col style="width: 9%" />
+<col style="width: 8%" />
+<col style="width: 5%" />
+<col style="width: 8%" />
 <col style="width: 7%" />
 <col style="width: 7%" />
-<col style="width: 2%" />
-<col style="width: 4%" />
-<col style="width: 4%" />
-<col style="width: 6%" />
-<col style="width: 6%" />
-<col style="width: 28%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 7%" />
+<col style="width: 24%" />
 </colgroup>
 <thead>
 <tr class="header">
@@ -2923,250 +2282,29 @@ text-align: justify}
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">display_text_width</td>
+<td style="text-align: left;">tweet_id</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">160.19</td>
-<td style="text-align: right;">51.33</td>
-<td style="text-align: right;">11</td>
-<td style="text-align: right;">140.0</td>
-<td style="text-align: right;">140</td>
-<td style="text-align: right;">150.0</td>
-<td style="text-align: right;">310</td>
-<td style="text-align: left;">▁▁▇▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">favorite_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1.76</td>
-<td style="text-align: right;">36.34</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">2560</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">267.42</td>
-<td style="text-align: right;">635.04</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">142.0</td>
-<td style="text-align: right;">7669</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_favorite_count</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">4300.59</td>
-<td style="text-align: right;">17793.73</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">16.5</td>
-<td style="text-align: right;">172</td>
-<td style="text-align: right;">1822.0</td>
-<td style="text-align: right;">284520</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quoted_retweet_count</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">1072.92</td>
-<td style="text-align: right;">3612.48</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">5.0</td>
-<td style="text-align: right;">53</td>
-<td style="text-align: right;">550.5</td>
-<td style="text-align: right;">41710</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_followers_count</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">1265361.30</td>
-<td style="text-align: right;">6196086.27</td>
 <td style="text-align: right;">1</td>
-<td style="text-align: right;">3048.0</td>
-<td style="text-align: right;">25482</td>
-<td style="text-align: right;">178246.0</td>
-<td style="text-align: right;">79078337</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">quoted_friends_count</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">3150.25</td>
-<td style="text-align: right;">8832.52</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">442.5</td>
-<td style="text-align: right;">1057</td>
-<td style="text-align: right;">2816.0</td>
-<td style="text-align: right;">111186</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_statuses_count</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: right;">77173.84</td>
-<td style="text-align: right;">163889.98</td>
-<td style="text-align: right;">39</td>
-<td style="text-align: right;">5182.0</td>
-<td style="text-align: right;">19047</td>
-<td style="text-align: right;">60848.5</td>
-<td style="text-align: right;">1244017</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_favorite_count</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">847.39</td>
-<td style="text-align: right;">1957.07</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">9.0</td>
-<td style="text-align: right;">131</td>
-<td style="text-align: right;">1710.0</td>
-<td style="text-align: right;">32501</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">retweet_retweet_count</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">409.17</td>
-<td style="text-align: right;">748.52</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">4.0</td>
-<td style="text-align: right;">44</td>
-<td style="text-align: right;">475.0</td>
-<td style="text-align: right;">7669</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_followers_count</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">167132.98</td>
-<td style="text-align: right;">812246.84</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1868.0</td>
-<td style="text-align: right;">4743</td>
-<td style="text-align: right;">36713.0</td>
-<td style="text-align: right;">16927467</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">retweet_friends_count</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">2446.33</td>
-<td style="text-align: right;">7702.08</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">535.0</td>
-<td style="text-align: right;">832</td>
-<td style="text-align: right;">2419.0</td>
-<td style="text-align: right;">280553</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_statuses_count</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: right;">58646.57</td>
-<td style="text-align: right;">126852.08</td>
-<td style="text-align: right;">2</td>
-<td style="text-align: right;">2179.0</td>
-<td style="text-align: right;">10799</td>
-<td style="text-align: right;">50797.0</td>
-<td style="text-align: right;">3221526</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">followers_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">19568.67</td>
-<td style="text-align: right;">322503.18</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">109.0</td>
-<td style="text-align: right;">568</td>
-<td style="text-align: right;">2006.0</td>
-<td style="text-align: right;">16927467</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">friends_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">1772.59</td>
-<td style="text-align: right;">7513.42</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">139.0</td>
-<td style="text-align: right;">579</td>
-<td style="text-align: right;">1728.5</td>
-<td style="text-align: right;">568088</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">listed_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">99.29</td>
-<td style="text-align: right;">767.37</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">0.0</td>
-<td style="text-align: right;">4</td>
-<td style="text-align: right;">28.0</td>
-<td style="text-align: right;">37942</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">statuses_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">64414.02</td>
-<td style="text-align: right;">144797.32</td>
-<td style="text-align: right;">1</td>
-<td style="text-align: right;">3259.0</td>
-<td style="text-align: right;">15189</td>
-<td style="text-align: right;">75375.0</td>
-<td style="text-align: right;">3221525</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">favourites_count</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: right;">42616.78</td>
-<td style="text-align: right;">89549.84</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">860.0</td>
-<td style="text-align: right;">8151</td>
-<td style="text-align: right;">45395.5</td>
-<td style="text-align: right;">1389145</td>
-<td style="text-align: left;">▇▁▁▁▁</td>
+<td style="text-align: right;">1.489498e+18</td>
+<td style="text-align: right;">4.495719e+15</td>
+<td style="text-align: right;">1.483113e+18</td>
+<td style="text-align: right;">1.485359e+18</td>
+<td style="text-align: right;">1.489598e+18</td>
+<td style="text-align: right;">1.493456e+18</td>
+<td style="text-align: right;">1.498086e+18</td>
+<td style="text-align: left;">▇▃▅▅▃</td>
 </tr>
 </tbody>
 </table>
 <p><strong>Variable type: POSIXct</strong></p>
 <table>
 <colgroup>
-<col style="width: 16%" />
-<col style="width: 8%" />
-<col style="width: 12%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
-<col style="width: 17%" />
+<col style="width: 13%" />
+<col style="width: 9%" />
+<col style="width: 13%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
+<col style="width: 18%" />
 <col style="width: 8%" />
 </colgroup>
 <thead>
@@ -3184,38 +2322,11 @@ text-align: justify}
 <tr class="odd">
 <td style="text-align: left;">created_at</td>
 <td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: left;">2022-03-24 06:44:16</td>
-<td style="text-align: left;">2022-03-25 20:57:13</td>
-<td style="text-align: left;">2022-03-25 03:32:37</td>
-<td style="text-align: right;">16695</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">quoted_created_at</td>
-<td style="text-align: right;">17408</td>
-<td style="text-align: right;">0.03</td>
-<td style="text-align: left;">2017-08-08 15:42:11</td>
-<td style="text-align: left;">2022-03-25 20:33:57</td>
-<td style="text-align: left;">2022-03-24 16:05:47</td>
-<td style="text-align: right;">501</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">retweet_created_at</td>
-<td style="text-align: right;">6242</td>
-<td style="text-align: right;">0.65</td>
-<td style="text-align: left;">2020-03-13 16:08:50</td>
-<td style="text-align: left;">2022-03-25 20:52:46</td>
-<td style="text-align: left;">2022-03-24 17:30:00</td>
-<td style="text-align: right;">2712</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">account_created_at</td>
-<td style="text-align: right;">0</td>
-<td style="text-align: right;">1.00</td>
-<td style="text-align: left;">2006-12-12 21:09:52</td>
-<td style="text-align: left;">2022-03-25 18:38:05</td>
-<td style="text-align: left;">2015-06-23 21:17:20</td>
-<td style="text-align: right;">13493</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: left;">2022-01-17 16:24:12</td>
+<td style="text-align: left;">2022-02-27 23:59:59</td>
+<td style="text-align: left;">2022-02-04 13:54:15</td>
+<td style="text-align: right;">1479653</td>
 </tr>
 </tbody>
 </table>
@@ -3226,50 +2337,40 @@ text-align: justify}
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;@uk_sf_writer @BBC For the past 2 years @BBCNews have consistently framed #COVID news in the most negative way possible. I have been the following the figures and can inform anyone who is interested that the recent rise in infections has peaked and will go down rapidly next week.&quot;                                   
- [2] &quot;2022 has brought new #Covid narrative - \r\n1 #Virus getting weaker \r\n2 #Vaccine situation fine as is\r\n3 We don&#39;t need #publichealth measures any more\r\n\r\nReally?\r\nSome of my colleagues from academia, @WHO &amp;amp; @ApiJectCorp worked to put together this &lt;U+0001F9F5&gt; \r\n#50CovidBeliefs&quot;                     
- [3] &quot;Today, the Government of &lt;U+0001F1E8&gt;&lt;U+0001F1E6&gt; is investing in the health care system to help our provincial and territorial partners expedite the processing of delayed surgeries. This is an important 1st step in repairing #COVID damages and protecting the accessibility of healthcare in &lt;U+0001F1E8&gt;&lt;U+0001F1E6&gt;&quot;
- [4] &quot;Take precautions. A new variant is coming. #COVID https://t.co/ggVR8O2Ty9&quot;                                                                                                                                                                                                                                                  
- [5] &quot;2022 has brought new #Covid narrative - \r\n1 #Virus getting weaker \r\n2 #Vaccine situation fine as is\r\n3 We don&#39;t need #publichealth measures any more\r\n\r\nReally?\r\nSome of my colleagues from academia, @WHO &amp;amp; @ApiJectCorp worked to put together this &lt;U+0001F9F5&gt; \r\n#50CovidBeliefs&quot;                     
- [6] &quot;Daily Covid Deaths per 1K Population by County For GA   2022-03-22:  Latest Covid Insights by Our Analytics Team using USAFacts #datavisualization #datascience #analytics #healthtech #data #covid19 #publichealth #covid #globalhealth #RStats https://t.co/vbeS4sSt2j&quot;                                                   
- [7] &quot;Daily US Covid Deaths by County For CA   2022-03-22:  Latest Covid Insights by Our Analytics Team using USAFacts #datavisualization #datascience #analytics #healthtech #data #covid19 #publichealth #covid #globalhealth #RStats https://t.co/ZAbfTaGCeS&quot;                                                                  
- [8] &quot;Total Covid Death Distribution by County  For CA   2022-03-22:  Latest Covid Insights by Our Analytics Team using USAFacts #datavisualization #datascience #analytics #healthtech #data #covid19 #publichealth #covid #globalhealth #RStats https://t.co/1da0nYXgD9&quot;                                                        
- [9] &quot;Daily US Covid Deaths by County For NC   2022-03-22:  Latest Covid Insights by Our Analytics Team using USAFacts #datavisualization #datascience #analytics #healthtech #data #covid19 #publichealth #covid #globalhealth #RStats https://t.co/7uHHCcf1MY&quot;                                                                  
-[10] &quot;Total Covid Death Distribution by County  For WA   2022-03-22:  Latest Covid Insights by Our Analytics Team using USAFacts #datavisualization #datascience #analytics #healthtech #data #covid19 #publichealth #covid #globalhealth #RStats https://t.co/RsQdTrdsOn&quot;                                                        </code></pre>
+<pre><code> [1] &quot;the dashboard has been updated on january new cases and deaths in days of&quot;                                                                                
+ [2] &quot;health canada has authorized the first treatment in pill form that can be used at home to help prevent ser&quot;                                               
+ [3] &quot;vaccine year of vaccination my gettr&quot;                                                                                                                     
+ [4] &quot;hey unvaccinated people what your excuse now even sheep are doing it&quot;                                                                                     
+ [5] &quot;every single pediatrician know was first in line to immunize their children against that should tell you somethin&quot;                                        
+ [6] &quot;children from kupwara kashmir sang song as tribute to indian army on army day this shows indianarmy has succe&quot;                                            
+ [7] &quot;only states and c report vaccination data by race ethnicity for kids including states and c who report this da&quot;                                           
+ [8] &quot;did you know covax has delivered one in ten vaccines worldwide find out more about the partnership in this&quot;                                               
+ [9] &quot;billion doses of vaccines have been delivered to countries across the incl via global vaccine platform&quot;                                                   
+[10] &quot;being an adult means making hard decisions like canceling trip to rochester to go see your favorite bands your bff because rates are raging adultingblows&quot;</code></pre>
 </div>
-<p>varibales that might be useful in the future analysis : created_at,
-screen_name, text, source, is_retweet, retweet_count, hashtags, symbols,
-mentions_screen_name, quoted_text, quoted_created_at,
-quoted_screen_name, quoted_name, quoted_followers_count,
-quoted_location, quoted_description, retweet_text, retweet_created_at,
-retweet_screen_name, retweet_name, retweet_followers_count,
-retweet_friends_count, retweet_statuses_count, retweet_location,
-retweet_description, place_name, place_type, place_full_name, country,
-country_code, geo_coords, coords_coords, bbox_coords, name, location,
-description,</p>
 <h1 id="cleaning-tweets">cleaning tweets</h1>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>clean</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>text</span><span class='op'>)</span> <span class='op'>{</span>
-  <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='va'>text</span>,<span class='st'>" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+  <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='va'>text</span>,<span class='st'>" ?(f|ht)(tp)(s?)(://)(.*)[.|/](.*)"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Remove mentions</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"@[[:alnum:]_]*"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"@[[:alnum:]_]*"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Remove hash tags</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"#[[:alnum:]_]+"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"#[[:alnum:]_]+"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Replace "&amp;" character reference with "and"</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>"&amp;amp;"</span>, <span class='st'>"and"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>"&amp;amp;"</span>, <span class='st'>"and"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Remove punctuation, using a standard character class</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"[[:punct:]]"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"[[:punct:]]"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># remove digits</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"[[:digit:]]"</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"[[:digit:]]"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Remove "RT: " from beginning of retweets</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"^RT:? "</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"^RT:? "</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Replace any newline characters with a space</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>"\\\n|\\\r"</span>, <span class='st'>" "</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_replace.html'>str_replace_all</a></span><span class='op'>(</span><span class='st'>"\\\n|\\\r"</span>, <span class='st'>" "</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># remove strings like "&lt;U+0001F9F5&gt;"</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"&lt;.*?&gt;"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_remove.html'>str_remove_all</a></span><span class='op'>(</span><span class='st'>"&lt;.*?&gt;"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> 
                             <span class='co'># Make everything lowercase</span>
-                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_lower</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+                            <span class='fu'><a href='https://stringr.tidyverse.org/reference/case.html'>str_to_lower</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>
                             <span class='co'># Remove any trailing white space around the text and inside a string</span>
                             <span class='fu'><a href='https://stringr.tidyverse.org/reference/str_trim.html'>str_squish</a></span><span class='op'>(</span><span class='op'>)</span>
 <span class='op'>}</span>
@@ -3279,7 +2380,6 @@ description,</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'>clean</span><span class='op'>(</span><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span><span class='op'>)</span>
-<span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>retweet_text</span> <span class='op'>&lt;-</span> <span class='fu'>clean</span><span class='op'>(</span><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>retweet_text</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -3289,24 +2389,24 @@ description,</p>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>]</span>
 </code></pre>
 </div>
-<pre><code> [1] &quot;for the past years have consistently framed news in the most negative way possible i have been the following the figures and can inform anyone who is interested that the recent rise in infections has peaked and will go down rapidly next week&quot;              
- [2] &quot;has brought new narrative getting weaker situation fine as is we dont need measures any more really some of my colleagues from academia and worked to put together this&quot;                                                                                        
- [3] &quot;today the government of is investing in the health care system to help our provincial and territorial partners expedite the processing of delayed surgeries this is an important st step in repairing damages and protecting the accessibility of healthcare in&quot;
- [4] &quot;take precautions a new variant is coming&quot;                                                                                                                                                                                                                       
- [5] &quot;has brought new narrative getting weaker situation fine as is we dont need measures any more really some of my colleagues from academia and worked to put together this&quot;                                                                                        
- [6] &quot;daily covid deaths per k population by county for ga latest covid insights by our analytics team using usafacts&quot;                                                                                                                                                
- [7] &quot;daily us covid deaths by county for ca latest covid insights by our analytics team using usafacts&quot;                                                                                                                                                              
- [8] &quot;total covid death distribution by county for ca latest covid insights by our analytics team using usafacts&quot;                                                                                                                                                     
- [9] &quot;daily us covid deaths by county for nc latest covid insights by our analytics team using usafacts&quot;                                                                                                                                                              
-[10] &quot;total covid death distribution by county for wa latest covid insights by our analytics team using usafacts&quot;                                                                                                                                                     </code></pre>
+<pre><code> [1] &quot;the dashboard has been updated on january new cases and deaths in days of&quot;                                                                                
+ [2] &quot;health canada has authorized the first treatment in pill form that can be used at home to help prevent ser&quot;                                               
+ [3] &quot;vaccine year of vaccination my gettr&quot;                                                                                                                     
+ [4] &quot;hey unvaccinated people what your excuse now even sheep are doing it&quot;                                                                                     
+ [5] &quot;every single pediatrician know was first in line to immunize their children against that should tell you somethin&quot;                                        
+ [6] &quot;children from kupwara kashmir sang song as tribute to indian army on army day this shows indianarmy has succe&quot;                                            
+ [7] &quot;only states and c report vaccination data by race ethnicity for kids including states and c who report this da&quot;                                           
+ [8] &quot;did you know covax has delivered one in ten vaccines worldwide find out more about the partnership in this&quot;                                               
+ [9] &quot;billion doses of vaccines have been delivered to countries across the incl via global vaccine platform&quot;                                                   
+[10] &quot;being an adult means making hard decisions like canceling trip to rochester to go see your favorite bands your bff because rates are raging adultingblows&quot;</code></pre>
 </div>
 <p>converting the character vectors, <code>text</code>,
 <code>retweet_text</code> to a single corpus</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/corpus.html'>corpus</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span>, <span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>retweet_text</span><span class='op'>)</span><span class='op'>)</span>
-<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/dfm.html'>dfm</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/tokens.html'>tokens</a></span><span class='op'>(</span><span class='va'>text</span>, remove_punct<span class='op'>=</span><span class='cn'>TRUE</span>, remove_numbers <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-             <span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/tokens_select.html'>tokens_select</a></span><span class='op'>(</span>pattern<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/pkg/stopwords/man/stopwords.html'>stopwords</a></span><span class='op'>(</span><span class='st'>"en"</span><span class='op'>)</span>,
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'>corpus</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>text</span>, <span class='va'>twitter_data</span><span class='op'>$</span><span class='va'>retweet_text</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>text</span> <span class='op'>&lt;-</span> <span class='fu'>dfm</span><span class='op'>(</span><span class='fu'>tokens</span><span class='op'>(</span><span class='va'>text</span>, remove_punct<span class='op'>=</span><span class='cn'>TRUE</span>, remove_numbers <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+             <span class='fu'>tokens_select</span><span class='op'>(</span>pattern<span class='op'>=</span><span class='fu'>stopwords</span><span class='op'>(</span><span class='st'>"en"</span><span class='op'>)</span>,
                             selection<span class='op'>=</span><span class='st'>"remove"</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
@@ -3321,13 +2421,13 @@ description,</p>
 <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>word_counts</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>       Frequency   word Rank
-covid       7927  covid    1
-people      5364 people    2
-cases       3632  cases    3
-person      3398 person    4
-new         3368    new    5
-rules       3346  rules    6</code></pre>
+<pre><code>            Frequency        word Rank
+cases          226946       cases    1
+new            210197         new    2
+people         167343      people    3
+vaccine        163866     vaccine    4
+coronavirus    149677 coronavirus    5
+omicron        137526     omicron    6</code></pre>
 </div>
 <p>counting the words that have frequency leass than 50</p>
 <div class="layout-chunk" data-layout="l-body">
@@ -3335,15 +2435,15 @@ rules       3346  rules    6</code></pre>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>word_counts</span><span class='op'>$</span><span class='va'>Frequency</span> <span class='op'>&lt;</span> <span class='fl'>50</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] 12368</code></pre>
+<pre><code>[1] 147378</code></pre>
 </div>
 <p>looking at how word frequencies are distributed</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>word_counts</span>, mapping <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Rank</span>, y <span class='op'>=</span> <span class='va'>Frequency</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>geom_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Zipf's Law"</span>, x <span class='op'>=</span> <span class='st'>"Rank"</span>, y <span class='op'>=</span> <span class='st'>"Frequency"</span><span class='op'>)</span> <span class='op'>+</span> 
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_bw</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>word_counts</span>, mapping <span class='op'>=</span> <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>Rank</span>, y <span class='op'>=</span> <span class='va'>Frequency</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>geom_point</span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"Zipf's Law"</span>, x <span class='op'>=</span> <span class='st'>"Rank"</span>, y <span class='op'>=</span> <span class='st'>"Frequency"</span><span class='op'>)</span> <span class='op'>+</span> 
+  <span class='fu'>theme_bw</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="fourth_post_files/figure-html5/unnamed-chunk-12-1.png" width="624" /></p>
@@ -3356,55 +2456,55 @@ frequencies using dfm_trim().</p>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># let's create a nicer dfm by limiting to words that appear frequently and are in more than 30% of tweets</span>
 <span class='co'>#text_dfm &lt;- dfm_trim(text, min_termfreq = 50)</span>
-<span class='va'>text_dfm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/dfm_trim.html'>dfm_trim</a></span><span class='op'>(</span><span class='va'>text</span>, min_termfreq <span class='op'>=</span> <span class='fl'>.3</span>, docfreq_type <span class='op'>=</span> <span class='st'>"prop"</span><span class='op'>)</span>
+<span class='va'>text_dfm</span> <span class='op'>&lt;-</span> <span class='fu'>dfm_trim</span><span class='op'>(</span><span class='va'>text</span>, min_termfreq <span class='op'>=</span> <span class='fl'>.3</span>, docfreq_type <span class='op'>=</span> <span class='st'>"prop"</span><span class='op'>)</span>
 
 <span class='co'># create fcm from dfm</span>
-<span class='va'>text_fcm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/fcm.html'>fcm</a></span><span class='op'>(</span><span class='va'>text_dfm</span><span class='op'>)</span>
+<span class='va'>text_fcm</span> <span class='op'>&lt;-</span> <span class='fu'>fcm</span><span class='op'>(</span><span class='va'>text_dfm</span><span class='op'>)</span>
 
 <span class='co'># check the dimensions (i.e., the number of rows and the number of columnns)</span>
 <span class='co'># of the matrix we created</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>text_fcm</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>[1] 13621 13621</code></pre>
+<pre><code>[1] 167217 167217</code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>text_fcm</span>, <span class='fl'>10</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>Feature co-occurrence matrix of: 10 by 13,621 features.
-              features
-features       past years consistently framed news negative way
-  past            3   111           15     15   16       16  15
-  years           0    58           15     15   20       17  66
-  consistently    0     0            0     15   15       15  15
-  framed          0     0            0      0   15       15  15
-  news            0     0            0      0   13       16  16
-  negative        0     0            0      0    0        2  18
-  way             0     0            0      0    0        0  13
-  possible        0     0            0      0    0        0   0
-  following       0     0            0      0    0        0   0
-  figures         0     0            0      0    0        0   0
-              features
-features       possible following figures
-  past               15        15      15
-  years             411        18      15
-  consistently       15        15      15
-  framed             15        15      15
-  news               15        17      15
-  negative           15        20      15
-  way                16        15      15
-  possible            2        15      15
-  following           0         0      15
-  figures             0         0       0
-[ reached max_nfeat ... 13,611 more features ]</code></pre>
+<pre><code>Feature co-occurrence matrix of: 10 by 167,217 features.
+            features
+features     dashboard updated january   new  cases deaths days
+  dashboard        203    1882     827  1685   3729   2815 1465
+  updated            0     113     858  2210   3851   2951 1932
+  january            0       0     517  5480   8149   4382 1103
+  new                0       0       0 32037 130482  50268 6670
+  cases              0       0       0     0  57566  78553 8452
+  deaths             0       0       0     0      0  17171 6134
+  days               0       0       0     0      0      0 1980
+  health             0       0       0     0      0      0    0
+  canada             0       0       0     0      0      0    0
+  authorized         0       0       0     0      0      0    0
+            features
+features     health canada authorized
+  dashboard     175      5          0
+  updated       723    210          6
+  january      1022    361          3
+  new          8960   1547         44
+  cases       17538   1535          7
+  deaths      12210   1478          6
+  days         1378    725          6
+  health      10015   4900        330
+  canada          0   6017        358
+  authorized      0      0          6
+[ reached max_nfeat ... 167,207 more features ]</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'># pull the top features</span>
-<span class='va'>myFeatures</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/topfeatures.html'>topfeatures</a></span><span class='op'>(</span><span class='va'>text_fcm</span>, <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>myFeatures</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='fu'>topfeatures</span><span class='op'>(</span><span class='va'>text_fcm</span>, <span class='fl'>30</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># retain only those top features as part of our matrix</span>
-<span class='va'>even_text_fcm</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/quanteda/man/dfm_select.html'>fcm_select</a></span><span class='op'>(</span><span class='va'>text_fcm</span>, pattern <span class='op'>=</span> <span class='va'>myFeatures</span>, selection <span class='op'>=</span> <span class='st'>"keep"</span><span class='op'>)</span>
+<span class='va'>even_text_fcm</span> <span class='op'>&lt;-</span> <span class='fu'>fcm_select</span><span class='op'>(</span><span class='va'>text_fcm</span>, pattern <span class='op'>=</span> <span class='va'>myFeatures</span>, selection <span class='op'>=</span> <span class='st'>"keep"</span><span class='op'>)</span>
 
 <span class='co'># check dimensions</span>
 <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>even_text_fcm</span><span class='op'>)</span>
@@ -3416,7 +2516,7 @@ features       possible following figures
 <span class='va'>size</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/colSums.html'>colSums</a></span><span class='op'>(</span><span class='va'>even_text_fcm</span><span class='op'>)</span><span class='op'>)</span>
 
 <span class='co'># create plot</span>
-<span class='fu'><a href='https://rdrr.io/pkg/quanteda.textplots/man/textplot_network.html'>textplot_network</a></span><span class='op'>(</span><span class='va'>even_text_fcm</span>, vertex_size <span class='op'>=</span> <span class='va'>size</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>size</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>3</span><span class='op'>)</span>
+<span class='fu'>textplot_network</span><span class='op'>(</span><span class='va'>even_text_fcm</span>, vertex_size <span class='op'>=</span> <span class='va'>size</span> <span class='op'>/</span> <span class='fu'><a href='https://rdrr.io/r/base/Extremes.html'>max</a></span><span class='op'>(</span><span class='va'>size</span><span class='op'>)</span> <span class='op'>*</span> <span class='fl'>3</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="fourth_post_files/figure-html5/unnamed-chunk-14-1.png" width="624" /></p>
@@ -3429,7 +2529,7 @@ in tidytext package</p>
 Computational Intelligence, 29(3): 436-465.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nrc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/get_sentiments.html'>get_sentiments</a></span><span class='op'>(</span><span class='st'>"nrc"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>nrc</span> <span class='op'>&lt;-</span> <span class='fu'>get_sentiments</span><span class='op'>(</span><span class='st'>"nrc"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -3438,7 +2538,7 @@ href="http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010"
 class="uri">http://www2.imm.dtu.dk/pubdb/views/publication_details.php?id=6010</a>)</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>afinn</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/get_sentiments.html'>get_sentiments</a></span><span class='op'>(</span><span class='st'>"afinn"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>afinn</span> <span class='op'>&lt;-</span> <span class='fu'>get_sentiments</span><span class='op'>(</span><span class='st'>"afinn"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -3447,7 +2547,7 @@ href="https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html"
 class="uri">https://www.cs.uic.edu/~liub/FBS/sentiment-analysis.html</a></p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bing</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/get_sentiments.html'>get_sentiments</a></span><span class='op'>(</span><span class='st'>"bing"</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>bing</span> <span class='op'>&lt;-</span> <span class='fu'>get_sentiments</span><span class='op'>(</span><span class='st'>"bing"</span><span class='op'>)</span>
 </code></pre>
 </div>
 </div>
@@ -3458,29 +2558,29 @@ fear, joy, sadness, surprise, and trust.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>nrc</span> <span class='op'>&lt;-</span> <span class='va'>word_counts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>nrc</span>, by <span class='op'>=</span> <span class='st'>"word"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>sentiment</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>frequency <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>nrc</span>, by <span class='op'>=</span> <span class='st'>"word"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>sentiment</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarise</span><span class='op'>(</span>frequency <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 2
    sentiment    frequency
    &lt;chr&gt;            &lt;int&gt;
- 1 anger              414
- 2 anticipation       380
- 3 disgust            315
- 4 fear               515
- 5 joy                302
- 6 negative           991
- 7 positive           971
- 8 sadness            430
- 9 surprise           210
-10 trust              546</code></pre>
+ 1 anger             1182
+ 2 anticipation       794
+ 3 disgust            975
+ 4 fear              1385
+ 5 joy                632
+ 6 negative          3062
+ 7 positive          2133
+ 8 sadness           1116
+ 9 surprise           500
+10 trust             1152</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r">  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='va'>nrc</span>, <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sentiment</span>, y <span class='op'>=</span> <span class='va'>frequency</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>frequency</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>sentiment</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_bar</a></span><span class='op'>(</span>stat<span class='op'>=</span><span class='st'>'identity'</span><span class='op'>)</span><span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"percentage of emotion"</span><span class='op'>)</span><span class='op'>+</span>
-  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggtheme.html'>theme_classic</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r">  <span class='fu'>ggplot</span><span class='op'>(</span><span class='va'>nrc</span>, <span class='fu'>aes</span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>sentiment</span>, y <span class='op'>=</span> <span class='va'>frequency</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>frequency</span><span class='op'>)</span>, fill <span class='op'>=</span> <span class='va'>sentiment</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>geom_bar</span><span class='op'>(</span>stat<span class='op'>=</span><span class='st'>'identity'</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>labs</span><span class='op'>(</span>y <span class='op'>=</span> <span class='st'>"percentage of emotion"</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'>theme_classic</span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <p><img src="fourth_post_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
@@ -3490,16 +2590,16 @@ and negative categories.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>word_counts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>bing</span>, by <span class='op'>=</span> <span class='st'>"word"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>sentiment</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>frequency <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> 
+  <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>bing</span>, by <span class='op'>=</span> <span class='st'>"word"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>sentiment</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarise</span><span class='op'>(</span>frequency <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> 
 </code></pre>
 </div>
 <pre><code># A tibble: 2 x 2
   sentiment frequency
   &lt;chr&gt;         &lt;int&gt;
-1 negative       1071
-2 positive        613</code></pre>
+1 negative       3599
+2 positive       1538</code></pre>
 </div>
 <p>The AFINN lexicon assigns words with a score that runs between -5 and
 5, with negative scores indicating negative sentiment and positive
@@ -3507,105 +2607,105 @@ scores indicating positive sentiment.</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='va'>word_counts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>afinn</span>, by <span class='op'>=</span> <span class='st'>"word"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/summarise.html'>summarise</a></span><span class='op'>(</span>frequency <span class='op'>=</span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/context.html'>n</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>frequency</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'>inner_join</span><span class='op'>(</span><span class='va'>afinn</span>, by <span class='op'>=</span> <span class='st'>"word"</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>group_by</span><span class='op'>(</span><span class='va'>value</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>summarise</span><span class='op'>(</span>frequency <span class='op'>=</span> <span class='fu'>n</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+  <span class='fu'>arrange</span><span class='op'>(</span><span class='fu'>desc</span><span class='op'>(</span><span class='va'>frequency</span><span class='op'>)</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code># A tibble: 10 x 2
    value frequency
    &lt;dbl&gt;     &lt;int&gt;
- 1    -2       372
- 2     2       236
- 3    -1       159
- 4     1       148
- 5    -3       115
- 6     3        71
- 7    -4        20
- 8     4        19
- 9    -5         4
-10     5         3</code></pre>
+ 1    -2       874
+ 2     2       414
+ 3    -1       293
+ 4    -3       238
+ 5     1       204
+ 6     3       153
+ 7    -4        39
+ 8     4        38
+ 9    -5        15
+10     5         5</code></pre>
 </div>
 <p>most common positive and negative words</p>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>bing_word_counts</span> <span class='op'>&lt;-</span> <span class='va'>word_counts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/get_sentiments.html'>get_sentiments</a></span><span class='op'>(</span><span class='st'>"bing"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>word</span>, <span class='va'>Frequency</span>, <span class='va'>sentiment</span><span class='op'>)</span>, <span class='fl'>30</span><span class='op'>)</span>
+  <span class='fu'>inner_join</span><span class='op'>(</span><span class='fu'>get_sentiments</span><span class='op'>(</span><span class='st'>"bing"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'>select</span><span class='op'>(</span><span class='va'>word</span>, <span class='va'>Frequency</span>, <span class='va'>sentiment</span><span class='op'>)</span>, <span class='fl'>30</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>        word Frequency sentiment
-1      limit      3277  negative
-2      death      1702  negative
-3     worked      1557  positive
-4       fine      1555  positive
-5     weaker      1542  negative
-6   positive      1042  positive
-7       like       996  positive
-8       died       797  negative
-9       safe       726  positive
-10  symptoms       703  negative
-11     virus       699  negative
-12  recovery       661  positive
-13   protect       635  positive
-14   revival       620  positive
-15     rapid       613  positive
-16      work       534  positive
-17      best       500  positive
-18 available       419  positive
-19     break       408  negative
-20     bravo       400  positive
-21     right       384  positive
-22      dead       382  negative
-23       top       381  positive
-24       mar       346  negative
-25      free       340  positive
-26      sick       340  negative
-27      risk       337  negative
-28      good       327  positive
-29      well       289  positive
-30    better       265  positive</code></pre>
+<pre><code>         word Frequency sentiment
+1       virus     58719  negative
+2    positive     57913  positive
+3        like     50880  positive
+4       death     46987  negative
+5        free     45752  positive
+6        work     36684  positive
+7        died     36610  negative
+8        risk     35625  negative
+9    breaking     33144  negative
+10       safe     32545  positive
+11       well     30308  positive
+12    freedom     30232  positive
+13    protect     28426  positive
+14       good     28288  positive
+15  infection     28176  negative
+16   benefits     27731  positive
+17   symptoms     26354  negative
+18      saint     23853  positive
+19      great     23668  positive
+20    support     23439  positive
+21      right     21834  positive
+22     enough     20903  positive
+23 protection     20267  positive
+24       lost     19854  negative
+25     crisis     18816  negative
+26     better     18022  positive
+27       best     17348  positive
+28 infections     17135  negative
+29  available     17007  positive
+30   recovery     15911  positive</code></pre>
 </div>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>nrc_word_counts</span> <span class='op'>&lt;-</span> <span class='va'>word_counts</span> <span class='op'>%&gt;%</span>
-  <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/tidytext/man/get_sentiments.html'>get_sentiments</a></span><span class='op'>(</span><span class='st'>"nrc"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sentiment</span> <span class='op'>%in%</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"positve"</span>, <span class='st'>"negative"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
-   <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>word</span>, <span class='va'>Frequency</span>, <span class='va'>sentiment</span><span class='op'>)</span>, <span class='fl'>30</span><span class='op'>)</span>
+  <span class='fu'>inner_join</span><span class='op'>(</span><span class='fu'>get_sentiments</span><span class='op'>(</span><span class='st'>"nrc"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span>
+   <span class='fu'><a href='https://rdrr.io/r/stats/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>sentiment</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"positve"</span>, <span class='st'>"negative"</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>%&gt;%</span> 
+   <span class='fu'>select</span><span class='op'>(</span><span class='va'>word</span>, <span class='va'>Frequency</span>, <span class='va'>sentiment</span><span class='op'>)</span>, <span class='fl'>30</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>          word Frequency sentiment
-1        death      1702  negative
-2     pandemic      1287  negative
-3   government       710  negative
-4        virus       699  negative
-5      disease       670  negative
-6          hit       560  negative
-7         wear       478  negative
-8         case       421  negative
-9         shot       408  negative
-10         mar       346  negative
-11        sick       340  negative
-12        risk       337  negative
-13         war       335  negative
-14   infection       253  negative
-15       spent       246  negative
-16      crisis       225  negative
-17       sadly       224  negative
-18       fraud       221  negative
-19       fight       216  negative
-20    negative       215  negative
-21     refused       214  negative
-22 enforcement       201  negative
-23      demand       195  negative
-24        hate       193  negative
-25       worse       191  negative
-26   suffering       190  negative
-27   abandoned       187  negative
-28     illness       177  negative
-29         bad       171  negative
-30         flu       170  negative</code></pre>
+<pre><code>         word Frequency sentiment
+1    pandemic    126603  negative
+2       virus     58719  negative
+3  government     47388  negative
+4       death     46987  negative
+5        risk     35625  negative
+6   infection     28176  negative
+7         war     27816  negative
+8        case     26888  negative
+9        wear     23451  negative
+10      fight     23145  negative
+11    disease     20578  negative
+12       lost     19854  negative
+13     crisis     18816  negative
+14     locust     17224  negative
+15       sick     14344  negative
+16    highest     13871  negative
+17  emergency     13376  negative
+18       shot     13027  negative
+19        flu     12825  negative
+20  mortality     12423  negative
+21     cancer     11628  negative
+22 infectious     11395  negative
+23  dangerous     10701  negative
+24  isolation     10482  negative
+25     threat      9943  negative
+26     deadly      9376  negative
+27        die      9129  negative
+28     excess      8287  negative
+29      leave      8214  negative
+30       fear      7937  negative</code></pre>
 </div>
 <div class="sourceCode" id="cb13"><pre
 class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>

@@ -23,6 +23,10 @@ text-align: justify}
 
 ## intro
 
+loading required libraries 
+
+All the twitter data in the JSON format. It is later converted to csv format and stored in the combined_data.csv file which is loaded here
+
 ```{r}
 library(quanteda)
 library(tidyr)
@@ -35,13 +39,14 @@ library(tidytext)
 library(quanteda.sentiment)
 library(plotrix)
 library(radarchart)
-load("../../data/fifth_post.RData")
+#load("../../data/fifth_post.RData")
 
 
 
 df <- read_csv("../../data/combined_data.csv") %>% select(-1)
 ```
 
+Now we just wnt to know where more tweets are from?
 
 ```{r}
 
@@ -57,9 +62,11 @@ df %>% filter(!is.na(user_location)) %>%
       title = "Where more tweets are from - unique locations ") +  theme_classic()+
   theme(legend.position="none")
 ```
-
+Looks like most of the tweets are from India, followed by the USA sates and England countries.
 
 ## tokenization and dfm
+
+stop words are removed using the collection " stopwords-iso". the stopwords-iso has 1298 unique stopwords in english language
 
 ```{r}
 tweets <- df$text
@@ -71,6 +78,8 @@ dfm_tokens <- dfm(tweets)
 topfeatures(dfm_tokens, 20)
 ```
 
+wordcloud of all the tokens
+
 ```{r}
 word_counts <- as.data.frame(sort(colSums(dfm_tokens),dec=T))
 colnames(word_counts) <- c("count")
@@ -78,6 +87,9 @@ word_counts$word <- row.names(word_counts)
 textplot_wordcloud(dfm_tokens)
 
 ```
+
+Lokks like the discussions were around omicron, vaccines, pandemic, healthcare and deaths caused by coronavirus virus
+
 
 ## save RData
 
@@ -141,6 +153,9 @@ pie3D(perc$percent,labels=label,labelcex=1.1,explode= 0.1,
       main="Worldwide Sentiment")
 ```
 
+People showed more negative sentiments during the third wave in January and February months 
+
+
 ```{r}
 word_counts %>%
   # implement sentiment analysis using the "nrc" lexicon
@@ -156,4 +171,5 @@ word_counts %>%
   chartJSRadar(showToolTipLabel = TRUE, main = "NRC Radar")
 ```
 
-
+People display anger, disgust, fear, and sadness toward the pandemic and related death and there is less joy 
+and anticipation.
