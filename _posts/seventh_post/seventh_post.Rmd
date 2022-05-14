@@ -1,0 +1,119 @@
+---
+title: "STM"
+description: |
+ STM 
+author:
+  - name: Sathvik Thogaru 
+    url: https://thogarusathvik.github.io/Text-as-Data-Project/
+    
+date: 05-05-2022
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(cache = TRUE, time_it = TRUE)
+qwraps2::lazyload_cache_dir(path = "seventh_post_cache/html5")
+```
+
+<style>
+body {
+text-align: justify}
+</style>
+
+```{r libraries}
+library(topicmodels)
+library(dplyr)
+library(tm)
+library(quanteda)
+library(tidyr)
+library(readr)
+library(stringr)
+library(tidytext)
+library(stopwords)
+library(stm)
+```
+
+
+```{r reading_data}
+df1 <- read_csv("../../data/combined_data.csv") %>% select(-1)
+df1$word_count <- str_count(df1$text, "\\w+")
+df1 <-  df1[!df1$word_count<6,] ## 40227 rows
+```
+
+```{r stop_words}
+stop_words <- stopwords(source = "stopwords-iso")
+stop_words <- as.data.frame(stop_words)
+```
+
+```{r transforming}
+df2 <- df1 %>%
+  unnest_tokens(text, text)
+df2 <- df2 %>% 
+  anti_join(stop_words, by= c("text" = "stop_words"))
+
+df2 <- df2 %>% 
+  group_by(tweet_id) %>%
+  summarise(text = paste0(text, collapse = ' '))
+
+df2$word_count <- str_count(df2$text, "\\w+")
+df2 <-  df2[!df2$word_count<6,]
+```
+
+```{r corpus}
+tweets1 <- df2$text
+tweets1 <- unique(tweets1)
+corpus1 <- corpus(tweets1)
+corpus1 <- corpus_trim(corpus1, min_ntoken = 6)
+```
+
+
+```{r}
+
+dfm <- dfm(corpus1)
+# keep only words occurring >= 10 times and in >= 10 documents
+dfm <- dfm_trim(dfm, min_docfreq = 10, min_termfreq = 10)
+```
+
+```{r}
+stm_dfm <- convert(dfm, to = "stm")
+```
+
+```{r}
+stm_out <- prepDocuments(stm_dfm$documents, 
+                               stm_dfm$vocab, 
+                               stm_dfm$meta, 
+                     lower.thresh = 10)
+```
+
+```{r abc}
+stmResult <- stm(stm_out$documents, stm_out$vocab, K = 10,
+                          max.em.its = 75, data = stm_out$meta, init.type = "Spectral", seed = 1234)
+
+# save.image(file = "seventh_post.RData")
+```
+
+
+<!-- ```{r} -->
+<!-- stm_model_select <- selectModel(stm_out$documents, stm_out$vocab, K = 10, max.em.its = 75, data = stm_out$meta, runs = 20, seed = 1234) -->
+<!-- # save.image(file = "seventh_post.RData") -->
+<!-- # plotModels(stm_model_select, pch = c(1, 2, 3, 4), legend.position = "bottomright") -->
+<!-- ``` -->
+
+
+```{r plotting}
+plot(stmResult, type = "summary")
+cloud(stmResult, topic = 10, scale = c(2, 0.25))
+mod.out.corr <- topicCorr(stmResult)
+plot(mod.out.corr)
+
+```
+
+
+
+
+
+
+
+
